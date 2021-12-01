@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Get Authorization Code from Spotify</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div>
+        <h1 id="title">Get Authorization Code from Spotify</h1>
+        <a href="/login" class="btn btn-primary" id="login">Log in with Spotify</a>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const title = document.getElementById('title');
+      const login = document.getElementById('login');
+
+      if (params.has('success')) {
+        if (params.get('success') == 'true') {
+          title.innerText = 'Logged in successfully, you can now close this window.';
+          login.style.display = 'none';
+        } else {
+          title.innerText = 'There was an error logging you in. Please try again.';
+        }
+      }
+
+      login.addEventListener('click', () => {
+        axios.get('/login');
+      });
+    </script>
+  </body>
+</html>
